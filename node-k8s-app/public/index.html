@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Calculator</title>
+  
+  <!-- Google Fonts for better typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  
+  <!-- Basic Styling and Animations -->
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(to right, #4facfe, #00f2fe);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .calculator {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      font-size: 24px;
+      color: #333;
+    }
+
+    input {
+      width: 80%;
+      padding: 12px;
+      margin: 10px 0;
+      font-size: 18px;
+      border: 2px solid #ddd;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+    }
+
+    input:focus {
+      border-color: #4facfe;
+    }
+
+    select {
+      width: 80%;
+      padding: 10px;
+      font-size: 18px;
+      border-radius: 6px;
+      border: 2px solid #ddd;
+      margin-bottom: 20px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 18px;
+      background-color: #4facfe;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #00c6ff;
+      transform: translateY(-2px);
+    }
+
+    .result {
+      margin-top: 20px;
+      font-size: 20px;
+      font-weight: bold;
+      color: #333;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    .result.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="calculator">
+    <h1>Simple Calculator</h1>
+    <form id="calculator-form">
+      <input type="number" id="num1" name="num1" step="any" placeholder="First Number" required>
+      <input type="number" id="num2" name="num2" step="any" placeholder="Second Number" required>
+      <select id="operation" name="operation" required>
+        <option value="">Select Operation</option>
+        <option value="add">Add (+)</option>
+        <option value="subtract">Subtract (-)</option>
+        <option value="multiply">Multiply (×)</option>
+        <option value="divide">Divide (÷)</option>
+      </select>
+      <button type="submit">Calculate</button>
+    </form>
+    <div class="result" id="result"></div>
+  </div>
+
+  <!-- JavaScript to handle form submission and result display -->
+  <script>
+    document.getElementById('calculator-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const num1 = parseFloat(document.getElementById('num1').value);
+      const num2 = parseFloat(document.getElementById('num2').value);
+      const operation = document.getElementById('operation').value;
+      let result;
+
+      switch (operation) {
+        case 'add':
+          result = num1 + num2;
+          break;
+        case 'subtract':
+          result = num1 - num2;
+          break;
+        case 'multiply':
+          result = num1 * num2;
+          break;
+        case 'divide':
+          if (num2 === 0) {
+            result = 'Cannot divide by zero';
+          } else {
+            result = num1 / num2;
+          }
+          break;
+        default:
+          result = 'Invalid operation';
+      }
+
+      const resultDiv = document.getElementById('result');
+      resultDiv.textContent = `The result is: ${result}`;
+      resultDiv.classList.add('show');
+    });
+  </script>
+
+</body>
+</html>
